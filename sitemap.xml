@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>%5BGGI_PAGES_URL%5D/categories/</loc>
+  </url><url>
+    <loc>%5BGGI_PAGES_URL%5D/scorecards/</loc>
+  </url><url>
+    <loc>%5BGGI_PAGES_URL%5D/tags/</loc>
+  </url><url>
+    <loc>%5BGGI_PAGES_URL%5D/</loc>
+  </url>
+</urlset>
