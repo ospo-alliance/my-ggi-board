@@ -28,7 +28,8 @@ def main():
     args = parse_args()
 
     print("* Using GitHub backend.")
-    metadata, params, init_scorecard = retrieve_env()
+    metadata, init_scorecard = retrieve_env()
+    params = retrieve_params()
     setup_github(metadata, params, init_scorecard, args)
 
     print("\nDone.")
@@ -100,67 +101,8 @@ def setup_github(metadata, params: dict, init_scorecard, args: dict):
     * Create Goals board
     * Create schedule for pipeline
     """
-
-    # Get conf: Token
-    if 'GGI_GITHUB_TOKEN' in os.environ:
-        print("- Using token from env var 'GGI_GITHUB_TOKEN'")
-        params['github_token'] = os.environ['GGI_GITHUB_TOKEN']
-    else:
-        print("- Cannot find env var GGI_GITHUB_TOKEN. Please set it and re-run me.")
-        exit(1)
-    auth = Auth.Token(params['github_token'])
-
-    # Get conf: URL
-    public_github="https://github.com"
-    if 'GGI_GITHUB_URL' in os.environ:
-        params['github_url'] = os.environ['GGI_GITHUB_URL']
-        print("- Using URL from env var 'GGI_GITHUB_URL'")
-    elif 'github_url' in params and params['github_url'] != None:
-        print("- Using URL from configuration file")
-    else:
-        params['github_url'] = public_github
-        print("- Using default public URL")
-
-    if params['github_url'].startswith(public_github):
-        # Public Web Github
-        print("- Using public GitHub instance.")
-        g = Github(auth=auth)
-    else:
-        print(f"- Using GitHub on-premise host {params['github_url']} ")
-        # Github Enterprise with custom hostname
-        params['github_url'] = f"{params['github_url']}/api/v3"
-        g = Github(auth=auth, base_url=params['github_url'])
-
-    # Gett conf: Project
-    if 'GGI_GITHUB_PROJECT' in os.environ:
-        params['github_project'] = os.environ['GGI_GITHUB_PROJECT']
-        print("- Using Project from env var 'GGI_GITHUB_PROJECT'")
-    elif 'github_project' in params and params['github_project'] != None:
-        print(f"- Using Project from configuration file")
-    else:
-        print("I need a project (org + repo), e.g. ospo-alliance/" +
-              "my-ggi-board. Exiting.")
-        exit(1)
-
-
-    params['github_repo_url'] = urllib.parse.urljoin(params['github_url'], params['github_project'])
-    params['github_activities_url'] = params['github_repo_url'] + '/projects'
-
-    print("Configuration:")
-    print("URL     : " + params['github_url'])
-    print("Project : " + params['github_project'])
-    print("Full URL: " + params['github_repo_url'])
-
-
-    headers = {
-        "Authorization": f"Bearer {params['github_token']}",
-        "Accept": "application/vnd.github.inertia-preview+json"  # Needed for project board access
-    }
-
-    # Connecting to the GitHub instance.
-
-    print(f"\n# Retrieving project from GitHub at {params['github_repo_url']}.")
-    repo = g.get_repo(params['github_project'])
+    params = retrieve_params()
+    repo, github_handle, headers = get_authent(params)
 
     # Update current project description with Website URL
     if args.opt_projdesc:
@@ -175,7 +117,7 @@ def setup_github(metadata, params: dict, init_scorecard, args: dict):
         desc = (
             'Here you will find your dashboard: ' + github_pages_url + ' and the issues board: ' + ggi_activities_url + ' with all activities describing the local GGI'
         )
-        print(f"nNew description:\n<<<---------\n{desc}\n--------->>>\n")
+        print(f"New description:\n<<<---------\n{desc}\n--------->>>\n")
 
         # Update the repository description
         repo.edit(description=desc, homepage="https://ospo-alliance.org/")
@@ -241,16 +183,16 @@ def setup_github(metadata, params: dict, init_scorecard, args: dict):
         create_project_graphql(params)
 
     # Close the connection.
-    g.close()
+    github_handle.close()
 
 def create_project_graphql(params):
     print(f"\n# Create Goals board: {ggi_board_name}")
 
-    access_token = params['github_token']
+    access_token = params['GGI_GITHUB_TOKEN']
     headers = {'Authorization': f'bearer {access_token}'}
     graphql_url = 'https://api.github.com/graphql'
 
-    repo_infos = params['github_project'].split("/")
+    repo_infos = params['GGI_GITHUB_PROJECT'].split("/")
     repo_owner = repo_infos[0]
     repo_name = repo_infos[1]
 
