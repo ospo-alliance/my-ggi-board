@@ -3,7 +3,7 @@ languageCode = 'en-us'
 title = 'My Good Governance Initiative'
 
 theme = "hugo-tania"
-paginate = 30
+pagination.pagerSize = 30
 
 [params]
   # Emoji will show before the blog title on site navbar.
