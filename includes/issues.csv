@@ -1,0 +1,26 @@
+issue_id,activity_id,state,title,labels,updated_at,url,tasks_total,tasks_done
+2891416006,GGI-A-37,open,Open source enabling digital transformation,"Decision Maker,Not Selected,Strategy Goal",2025-03-03 14:30:10+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/26,0,0
+2891415846,GGI-A-36,open,Open source enabling innovation,"Decision Maker,Not Selected,Strategy Goal",2025-03-03 14:30:07+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/25,0,0
+2891415694,GGI-A-35,open,Open source and digital sovereignty,"Decision Maker,Not Selected,Strategy Goal",2025-03-03 14:30:04+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/24,0,0
+2891415542,GGI-A-34,open,C-Level awareness,"Decision Maker,Not Selected,Strategy Goal",2025-03-03 14:30:01+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/23,0,0
+2891415395,GGI-A-16,open,Setup a strategy for corporate open source governance,"Decision Maker,Not Selected,Strategy Goal",2025-03-03 14:29:58+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/22,0,0
+2891415229,GGI-A-43,open,Open source procurement policy,"Decision Maker,Not Selected,Engagement Goal",2025-03-03 14:29:55+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/21,0,0
+2891414980,GGI-A-33,open,Engage with open source vendors,"Decision Maker,Not Selected,Engagement Goal",2025-03-03 14:29:52+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/20,0,0
+2891414817,GGI-A-31,open,Publicly assert use of open source,"Team Leader,Decision Maker,Not Selected,Engagement Goal",2025-03-03 14:29:49+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/19,0,0
+2891414679,GGI-A-30,open,Support open source communities,"Decision Maker,Not Selected,Engagement Goal",2025-03-03 14:29:47+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/18,0,0
+2891414519,GGI-A-29,open,Engage with open source projects,"Developer,Decision Maker,Not Selected,Engagement Goal",2025-03-03 14:29:43+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/17,0,0
+2891414328,GGI-A-39,open,Upstream first,"Developer,Team Leader,Not Selected,Culture Goal",2025-03-03 14:29:40+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/16,0,0
+2891414172,GGI-A-28,open,HR perspective,"Decision Maker,Not Selected,Culture Goal",2025-03-03 14:29:37+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/15,0,0
+2891413988,GGI-A-27,open,Belong to the open source community,"Team Leader,Decision Maker,Not Selected,Culture Goal",2025-03-03 14:29:34+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/14,0,0
+2891413839,GGI-A-26,open,Contribute to open source projects,"Developer,Team Leader,Not Selected,Culture Goal",2025-03-03 14:29:31+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/13,0,0
+2891413664,GGI-A-25,open,Promote open source development best practices,"Developer,Team Leader,Not Selected,Culture Goal",2025-03-03 14:29:28+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/12,0,0
+2891413477,GGI-A-44,open,Run code reviews,"Developer,Team Leader,Not Selected,Trust Goal",2025-03-03 14:29:24+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/11,0,0
+2891413306,GGI-A-24,open,Manage key indicators,"Team Leader,Decision Maker,Not Selected,Trust Goal",2025-03-03 14:29:21+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/10,0,0
+2891413142,GGI-A-23,open,Manage software dependencies,"Developer,Team Leader,Not Selected,Trust Goal",2025-03-03 14:29:18+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/9,0,0
+2891412980,GGI-A-22,open,Manage software vulnerabilities,"Team Leader,Not Selected,Trust Goal",2025-03-03 14:29:16+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/8,0,0
+2891412823,GGI-A-21,open,Manage legal compliance,"Decision Maker,Not Selected,Trust Goal",2025-03-03 14:29:13+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/7,0,0
+2891412707,GGI-A-42,open,Manage open source skills and resources,"Team Leader,Not Selected,Usage Goal",2025-03-03 14:29:10+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/6,0,0
+2891412538,GGI-A-20,open,Open source enterprise software,"Decision Maker,Not Selected,Usage Goal",2025-03-03 14:29:06+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/5,0,0
+2891412381,GGI-A-19,open,Open source supervision,"Team Leader,Not Selected,Usage Goal",2025-03-03 14:29:03+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/4,0,0
+2891412122,GGI-A-18,open,Open source competency growth,"Team Leader,Not Selected,Usage Goal",2025-03-03 14:29:00+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/3,0,0
+2891411959,GGI-A-17,open,Inventory of open source skills and resources,"Developer,Team Leader,Not Selected,Usage Goal",2025-03-03 14:28:57+00:00,https://api.github.com/repos/ospo-alliance/my-ggi-board/issues/2,0,0

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+<head>
+	<meta name="generator" content="Hugo 0.145.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="dark">
+    <title>Your Good Governance initiative | My Good Governance Initiative</title>
+
+    <meta property="og:site_name" content="My Good Governance Initiative" />
+    <meta property="og:title" content="Your Good Governance initiative | My Good Governance Initiative"/>
+    <meta itemprop="name" content="Your Good Governance initiative | My Good Governance Initiative" />
+    <meta name="twitter:title" content="Your Good Governance initiative | My Good Governance Initiative" />
+    <meta name="application-name" content="Your Good Governance initiative | My Good Governance Initiative" /><meta name="twitter:card" content="summary"/>
+
+    <meta name="description" content="My Good Governance Initiative" />
+    <meta name="twitter:description" content="My Good Governance Initiative"/>
+    <meta itemprop="description" content="My Good Governance Initiative"/>
+    <meta property="og:description" content="My Good Governance Initiative" />
+
+    
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="/my-ggi-board/favicon.ico" />
+    
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="/my-ggi-board/sass/main.min.09a877420a98f82c0fa266db338c586ad446d893402f163512d9d1efdb850c8d.css">
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+    
+    <script>
+        (function() {
+            const colorSchemeKey = 'ThemeColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'ThemeColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.userColorScheme = 'dark';
+        } else {
+            document.documentElement.dataset.userColorScheme = 'light';
+        }
+    })();
+</script>
+
+
+    <body class="dark">
+        <nav class="navbar">
+    <div class="container">
+        <div class="flex">
+            <div>
+              
+                <a class="brand" href="/my-ggi-board">
+                  
+                    
+                    
+                        <img src="/my-ggi-board/images/OSPO_Alliance_Logo.svg" />
+                     &nbsp;
+                    My Good Governance Initiative
+                    </a>
+            </div>
+            <div class="flex">
+                
+                <a href="https://github.com/ospo-alliance/my-ggi-board/issues">My GGI Board</a>
+                
+                
+            </div>
+            </div>
+    </div>
+</nav>
+
+        <main>
+            
+
+<div class="container">
+    <section class="my">
+        <div class="content">
+            
+            <p>This dashboard tracks information from your <a href="https://github.com/ospo-alliance/my-ggi-board/issues">GGI board instance</a>. See the <a href="https://github.com/ospo-alliance/my-ggi-board/activity">Activity timeline of the project</a>.</p>
+<p>Please refer to the <a href="https://ospo-alliance.org/ggi">official documentation</a>.</p>
+<div class="md-columns">
+<div class="markdown-inner">
+<h2 id="general-progress">
+    <a href="#general-progress" class="anchor" style="text-decoration: none">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    General progress
+</h2>
+<p><canvas id="allActivities"></canvas></p>
+<script>
+data_all_activities = 
+[25, 0, 0]
+
+
+data = {
+  labels: [
+    'Not Started (' + data_all_activities[0] + ')',
+    'In Progress (' + data_all_activities[1] + ')',
+    'Completed  (' + data_all_activities[2] + ')',
+  ],
+  datasets: [{
+    label: 'My activities',
+    data: data_all_activities,
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};
+new Chart("allActivities", {
+    type: "doughnut",
+    data: data,
+    options:{
+        plugins:{
+            legend:{
+                position: "bottom"
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false
+    }
+});
+</script>
+</div>
+<div class="markdown-inner">
+<h2 id="goals">
+    <a href="#goals" class="anchor" style="text-decoration: none">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    Goals
+</h2>
+<p><canvas id="myGoals" style="width:50%;height:50%"></canvas></p>
+<script>
+labels = ['Usage', 'Trust', 'Culture', 'Engagement', 'Strategy'];
+data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'Done',
+      data: 
+[0, 0, 0, 0, 0]
+,
+      backgroundColor: 'rgb(255, 205, 86)',
+    },
+    {
+      label: 'In Progress',
+      data: 
+[0, 0, 0, 0, 0]
+,
+      backgroundColor: 'rgb(54, 162, 235)',
+    },
+    {
+      label: 'Not Started',
+       data: 
+[5, 5, 5, 5, 5]
+,
+      backgroundColor: 'rgb(255, 99, 132)',
+    },
+  ]
+};
+new Chart("myGoals", {
+    type: 'bar',
+    data: data,
+    options: {
+        plugins:{
+            legend:{
+                position: "bottom"
+            }
+        },
+        responsive: true,
+        scales: {
+            x: {
+                stacked: true
+            },
+            y: {
+                stacked: true
+            }
+        }
+    }
+  }
+);
+
+</script>
+</div>
+</div>
+<h2 id="activities--details-">
+    <a href="#activities--details-" class="anchor" style="text-decoration: none">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    Activities <a href='scorecards/' class='w3-text-grey' style="float:right">[ details ]</a>
+</h2>
+<script>
+var dataSet = 
+[['GGI-A-37', 'Not Selected', 'Open source enabling digital transformation', 0, 0], ['GGI-A-36', 'Not Selected', 'Open source enabling innovation', 0, 0], ['GGI-A-35', 'Not Selected', 'Open source and digital sovereignty', 0, 0], ['GGI-A-34', 'Not Selected', 'C-Level awareness', 0, 0], ['GGI-A-16', 'Not Selected', 'Setup a strategy for corporate open source governance', 0, 0], ['GGI-A-43', 'Not Selected', 'Open source procurement policy', 0, 0], ['GGI-A-33', 'Not Selected', 'Engage with open source vendors', 0, 0], ['GGI-A-31', 'Not Selected', 'Publicly assert use of open source', 0, 0], ['GGI-A-30', 'Not Selected', 'Support open source communities', 0, 0], ['GGI-A-29', 'Not Selected', 'Engage with open source projects', 0, 0], ['GGI-A-39', 'Not Selected', 'Upstream first', 0, 0], ['GGI-A-28', 'Not Selected', 'HR perspective', 0, 0], ['GGI-A-27', 'Not Selected', 'Belong to the open source community', 0, 0], ['GGI-A-26', 'Not Selected', 'Contribute to open source projects', 0, 0], ['GGI-A-25', 'Not Selected', 'Promote open source development best practices', 0, 0], ['GGI-A-44', 'Not Selected', 'Run code reviews', 0, 0], ['GGI-A-24', 'Not Selected', 'Manage key indicators', 0, 0], ['GGI-A-23', 'Not Selected', 'Manage software dependencies', 0, 0], ['GGI-A-22', 'Not Selected', 'Manage software vulnerabilities', 0, 0], ['GGI-A-21', 'Not Selected', 'Manage legal compliance', 0, 0], ['GGI-A-42', 'Not Selected', 'Manage open source skills and resources', 0, 0], ['GGI-A-20', 'Not Selected', 'Open source enterprise software', 0, 0], ['GGI-A-19', 'Not Selected', 'Open source supervision', 0, 0], ['GGI-A-18', 'Not Selected', 'Open source competency growth', 0, 0], ['GGI-A-17', 'Not Selected', 'Inventory of open source skills and resources', 0, 0]]
+
+
+$(document).ready(function () {
+    $('#activities').DataTable({
+        data: dataSet,
+        order: [[1, 'asc']],
+        pageLength: 25,
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, 'All'],
+        ],
+        columns: [
+            { title: 'ID',
+                render: function (data, type, row, meta) {
+                    if (type === 'display'){
+                        activity_id = row[0].toLowerCase();
+                        link = "scorecards/activity_" +activity_id;
+                        return '<a href="' + link + '">' + data + '</a>';
+                    }
+                    else{
+                        return data;
+                    }
+                }
+            },
+            { title: 'Status' },
+            { title: 'Title',
+                render: function (data, type, row, meta) {
+                    if (type === 'display'){
+                        activity_id = row[0].toLowerCase();
+                        link = "scorecards/activity_" +activity_id;
+                        return '<a href="' + link + '">' + data + '</a>';
+                    }
+                    else{
+                        return data;
+                    }
+                }
+            },
+            { title: 'Tasks',
+                render: function (data, type, row, meta) {
+                    return type === 'display' ?
+                        row[3] + '/' + row[4] : "";
+                },
+            },
+            { 
+                title: 'Completion',
+                render: function (data, type, row, meta) {
+                    let completion = "0%";
+                    let done = row[3];
+                    let total = row[4];
+                    if (total > 0){
+                        completion = Math.round(done/total*100);
+                    }
+                    if (type === 'display'){
+                        if (completion > 0){
+                            return '<div class="w3-light-grey w3-round"><div class="w3-container w3-blue w3-round" style="width:' + completion + '%">' + completion + '%</div></div>';
+                        }
+                        else{
+                            return '<div class="w3-light-grey w3-round">0%</div>';
+                        }
+                    }
+                    else{
+                        return data;
+                    }
+                },
+            }
+        ],
+    });
+});
+</script>
+<table id="activities" class="display" width="100%"></table>
+<h2 id="resources">
+    <a href="#resources" class="anchor" style="text-decoration: none">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    Resources
+</h2>
+<p>The <a href="https://ospo-alliance.org/ggi">Good Governance Initiative</a> is developed by the OSPO Alliance.</p>
+<p>Check <a href="https://ospo-alliance.org">our website</a> and <a href="https://accounts.eclipse.org/mailing-list/ospo.zone">join the discussion</a>!</p>
+
+            
+            <div class="bio-social">
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+
+
+<div class="container">
+    
+</div>
+
+
+        </main>
+        <footer class="footer flex">
+    <section class="container">
+        <nav class="footer-links">
+            
+            <a href="/my-ggi-board/"></a>
+            
+	    <a href="https://mastodon.social/@OSPOAlliance@mastodon.opencloud.lu">
+	      <img src="svgs/social/mastodon.svg" alt="Mastodon"/>
+	    </a>
+	    <a href="https://www.linkedin.com/company/ospo-alliance/">
+	      <img src="svgs/social/linkedin.svg" alt="LinkedIn"/>
+	    </a>
+	    <a href="https://twitter.com/OSPOAlliance">
+	      <img src="svgs/social/twitter.svg" alt="Twitter"/>
+	    </a>
+        </nav>
+
+        
+    </section>
+    <script defer src="/my-ggi-board/ts/features.706a523ba43e6d0427c7fdf2b9d05dbd0920d3f12942b453690b495cb2522743.js" 
+    data-enable-footnotes="true"
+    ></script>
+</footer>
+
+    </body>
+</html>
