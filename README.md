@@ -96,6 +96,7 @@ To deploy on GitHub, the simplest is to fork the [GitHub mirror repository](http
 ### Configure the project
 
 1. Go to the repository _Settings_ > _General_ > _Features_ and enable 'Issues' and 'Projects'.
+1. Edit the file in `conf/ggi_deployment.json`, and set the variables `github_url` (such as `https://github.com`) and `github_project` (such as `myuser/my-own-ggi-board`).
 
 ### Configure your GitHub token
 
@@ -133,3 +134,5 @@ This will:
   - Publish the result on GitHub pages.
 
     <img src="resources/setup_run-pipeline_github.png" width="50%" height="50%"> 
+
+1. You can then create your issues board by creating a new 'Project' into your GitHub organisation, link the project to your repository and finally link the issues to it.
