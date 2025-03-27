@@ -13,84 +13,12 @@
 
 """
 import time
-import urllib.parse
+
 import requests
+from github import GithubException
 
-from ggi_deploy import *
-from github import Github, GithubException
-from github import Auth
+from ggi_utils_github import *
 
-
-def main():
-    """
-    Main GITHUB.
-    """
-    args = parse_args()
-
-    print("* Using GitHub backend.")
-    metadata, init_scorecard = retrieve_env()
-    params = retrieve_params()
-    setup_github(metadata, params, init_scorecard, args)
-
-    print("\nDone.")
-
-def create_github_label(repo, new_label, label_args):
-    existing_labels = {label.name for label in repo.get_labels()}
-
-    """
-    Creates a set of labels in the GitHub project.
-    """
-    if new_label in existing_labels:
-        print(f" Ignore label: {new_label}")
-    else:
-        print(f" Create label: {new_label}")
-        name = label_args['name']
-        color = label_args['color'].replace("#","")
-        repo.create_label(name, color)
-
-def get_owner_id(owner, gh_token):
-    url = 'https://api.github.com/graphql'
-
-    headers = {
-        'Authorization': f'bearer {gh_token}',
-        'Content-Type': 'application/json'
-    }
-
-    query = """
-        query ($owner: String!) {
-          user(login: $owner) {
-            id
-            next_global_id
-          }
-          organization(login: $owner) {
-            id
-            next_global_id
-          }
-        }
-    """
-
-    variables = {"owner": owner}
-    response = requests.post(url, headers=headers, json={'query': query, 'variables': variables})
-
-    if response.status_code == 200:
-        data = response.json()
-        print("Réponse GitHub pour owner ID:", data)  # DEBUG
-
-        # Vérifier si c'est un utilisateur
-        if data.get('data', {}).get('user'):
-            user_data = data['data']['user']
-            return user_data.get('next_global_id', user_data['id'])  # Utilise next_global_id si disponible
-
-        # Vérifier si c'est une organisation
-        elif data.get('data', {}).get('organization'):
-            org_data = data['data']['organization']
-            return org_data.get('next_global_id', org_data['id'])  # Utilise next_global_id si disponible
-
-        else:
-            raise Exception("Impossible de récupérer l'ID du propriétaire.")
-
-    else:
-        raise Exception(f"Query failed with status {response.status_code}: {response.text}")
 
 def setup_github(metadata, params: dict, init_scorecard, args: dict):
     """
@@ -101,13 +29,12 @@ def setup_github(metadata, params: dict, init_scorecard, args: dict):
     * Create Goals board
     * Create schedule for pipeline
     """
-    params = retrieve_params()
     repo, github_handle, headers = get_authent(params)
 
     # Update current project description with Website URL
     if args.opt_projdesc:
         print("\n# Update Project description")
-        ggi_activities_url = params['github_activities_url']
+        ggi_activities_url = params['GITHUB_ACTIVITIES_URL']
 
         repo_fullname = os.getenv("GITHUB_REPOSITORY", "unknown/repo")  # "username/repository-name"
         repo_owner = os.getenv("GITHUB_REPOSITORY_OWNER", "unknown")  # "username"
@@ -184,6 +111,64 @@ def setup_github(metadata, params: dict, init_scorecard, args: dict):
 
     # Close the connection.
     github_handle.close()
+
+def create_github_label(repo, new_label, label_args):
+    existing_labels = {label.name for label in repo.get_labels()}
+
+    """
+    Creates a set of labels in the GitHub project.
+    """
+    if new_label in existing_labels:
+        print(f" Ignore label: {new_label}")
+    else:
+        print(f" Create label: {new_label}")
+        name = label_args['name']
+        color = label_args['color'].replace("#","")
+        repo.create_label(name, color)
+
+def get_owner_id(owner, gh_token):
+    url = 'https://api.github.com/graphql'
+
+    headers = {
+        'Authorization': f'bearer {gh_token}',
+        'Content-Type': 'application/json'
+    }
+
+    query = """
+        query ($owner: String!) {
+          user(login: $owner) {
+            id
+            next_global_id
+          }
+          organization(login: $owner) {
+            id
+            next_global_id
+          }
+        }
+    """
+
+    variables = {"owner": owner}
+    response = requests.post(url, headers=headers, json={'query': query, 'variables': variables})
+
+    if response.status_code == 200:
+        data = response.json()
+        print("Réponse GitHub pour owner ID:", data)  # DEBUG
+
+        # Vérifier si c'est un utilisateur
+        if data.get('data', {}).get('user'):
+            user_data = data['data']['user']
+            return user_data.get('next_global_id', user_data['id'])  # Utilise next_global_id si disponible
+
+        # Vérifier si c'est une organisation
+        elif data.get('data', {}).get('organization'):
+            org_data = data['data']['organization']
+            return org_data.get('next_global_id', org_data['id'])  # Utilise next_global_id si disponible
+
+        else:
+            raise Exception("Impossible de récupérer l'ID du propriétaire.")
+
+    else:
+        raise Exception(f"Query failed with status {response.status_code}: {response.text}")
 
 def create_project_graphql(params):
     print(f"\n# Create Goals board: {ggi_board_name}")
@@ -527,7 +512,6 @@ def create_project_graphql(params):
             #     else:
             #         print(f"✅ Assigné {goal_option_name} à l'issue '{issue['title']}'")
 
-
 def get_repo_id(headers):
     graphql_url = 'https://api.github.com/graphql'
 
@@ -555,6 +539,19 @@ def get_repo_id(headers):
     response_data = json.loads(response.text)
     return response_data
 
+def main():
+    """
+    Main GITHUB.
+    """
+    args = parse_args()
+
+    print("* Using GitHub backend.")
+    metadata, init_scorecard = retrieve_env()
+    params = retrieve_params()
+
+    setup_github(metadata, params, init_scorecard, args)
+
+    print("\nDone.")
 
 if __name__ == '__main__':
     main()

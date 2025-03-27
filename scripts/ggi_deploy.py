@@ -12,7 +12,7 @@
 """
 This script:
 - reads the metadata defined in the `conf` directory,
-- connects to the GitLab instance as configured in the ggi_deployment.json file
+- connects to the GitLab/GitHub instance as configured in the ggi_deployment.json file
 - optionally creates the activities on a new (empty) gitlab project,
 - optionally creates a board and its lists to display activities.
 
@@ -29,18 +29,11 @@ optional arguments:
   -d, --project-description   Update Project Description with pointers to the Board and Dashboard
   -p, --schedule-pipeline     Schedule nightly pipeline to update dashboard
 """
-
 import argparse
 import json
 import os
 import random
 import re
-import urllib.parse
-from github import Github, GithubException
-from github import Auth
-
-# Authentication is defined via github.Auth
-
 from collections import OrderedDict
 
 # Define some variables.
@@ -48,7 +41,7 @@ conf_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/conf'
 activities_file = conf_dir + '/ggi_activities_full.json'
 conf_file = conf_dir + '/ggi_deployment.json'
 init_scorecard_file = conf_dir + '/workflow_init.inc'
-public_github_root_url="https://github.com/"
+
 
 # Define some regexps
 re_section = re.compile(r"^### (?P<section>.*?)\s*$")
@@ -95,10 +88,7 @@ def parse_args():
 def retrieve_env():
     """
     Read metadata for activities and deployment options.
-    
-    Determine GitLab server URL and Project name
-    * From Environment variable if available, or
-    * From configuration file otherwise
+
     """
 
     print(f"\n# Reading metadata from {activities_file}")
@@ -162,93 +152,3 @@ def extract_sections(args, init_scorecard, activity):
         content_text += '\n\n'.join(content[key])
     return content_text
 
-def retrieve_params():
-    """
-    Read metadata for activities and deployment options.
-
-    Determine GitHub server URL and Project name
-    * From Environment variable if available, or
-    * From configuration file otherwise
-    """
-
-    print(f"# Reading deployment options from {conf_file}.")
-    with open(conf_file, 'r', encoding='utf-8') as f:
-        params = json.load(f)
-
-    # Get GGI_GITHUB_PROJECT
-    # P1: Search environment variable
-    if 'github_project' in os.environ:
-        params['GGI_GITHUB_PROJECT'] = os.environ['github_project']
-        print("- Using Project from env var 'GGI_GITHUB_PROJECT'")
-    # P2: Search Json configuration file
-    elif 'github_project' in params and params['github_project'] != None:
-        params['GGI_GITHUB_PROJECT'] = params['github_project']
-        print(f"- Using Project from configuration file")
-    # P3: Search GitHub action environment
-    elif 'GGI_GITHUB_REPOSITORY' in os.environ:
-        params['GGI_GITHUB_PROJECT'] = os.environ['GGI_GITHUB_REPOSITORY']
-        print(f"- Using Project from GitHub action environment")
-    else: # Give up.
-        github.action_repository
-        print("Could not determine project (org + repo), e.g. ospo-alliance/" +
-              "my-ggi-board. Exiting.")
-        exit(1)
-
-    if 'GGI_GITHUB_TOKEN' in os.environ:
-        print("- Using ggi_github_token from env var.")
-        params['GGI_GITHUB_TOKEN'] = os.environ['GGI_GITHUB_TOKEN']
-    else:
-        print("- Cannot find env var GGI_GITHUB_TOKEN. Please set it and re-run me.")
-        exit(1)
-
-    if 'github_host' in params and params['github_host'] != 'null':
-        print(f"- Using GitHub on-premises host {params['github_host']} " +
-              "from configuration file.")
-        # Github Enterprise with custom hostname
-        params['GGI_API_URL'] = f"{params['github_host']}/api/v3"
-        params['GGI_GITHUB_URL'] = urllib.parse.urljoin(params['github_host'] + '/', params['GGI_GITHUB_PROJECT'])
-        params['GGI_PAGES_URL'] = 'https://fix.me'
-    else:
-        # Public Web GitHub
-        params['GGI_API_URL'] = None
-        params['GGI_GITHUB_URL'] = urllib.parse.urljoin(public_github_root_url, params['GGI_GITHUB_PROJECT'])
-        params['GGI_PAGES_URL'] = urllib.parse.urljoin(
-            'https://' + re.sub('/.*$', '', params['GGI_GITHUB_PROJECT']) + '.github.io/', 
-            re.sub('^.*/', '', params['GGI_GITHUB_PROJECT']))
-        print("- Using public GitHub instance.")
-
-    params['GGI_ACTIVITIES_URL']= urllib.parse.urljoin(params['GGI_GITHUB_URL'] + '/', 'issues')
-
-    print("Configuration:")
-    print("URL     : " + params['GGI_GITHUB_URL'])
-    print("Project : " + params['GGI_GITHUB_PROJECT'])
-    print("Full URL: " + params['GGI_GITHUB_URL'])
-
-    return params
-
-
-def get_authent(params: dict):
-
-
-    headers = {
-        "Authorization": f"Bearer {params['GGI_GITHUB_TOKEN']}",
-        "Accept": "application/vnd.github.inertia-preview+json"  # Needed for project board access
-    }
-
-    # Connecting to the GitHub instance.
-    # Manage authenticatation
-    auth = Auth.Token(params['GGI_GITHUB_TOKEN'])
-    if params['GGI_GITHUB_URL'].startswith(public_github_root_url):
-        # Public Web Github
-        print("- Using public GitHub instance.")
-        github_handle = Github(auth=auth)
-    else:
-        print(f"- Using GitHub on-premise host {params['GGI_GITHUB_URL']} ")
-        # Github Enterprise with custom hostname
-        params['GGI_GITHUB_URL'] = f"{params['GGI_GITHUB_URL']}/api/v3"
-        github_handle = Github(auth=auth, base_url=params['GGI_GITHUB_URL'])
-
-    print(f"\n# Retrieving project from GitHub at {params['GGI_GITHUB_URL']}.")
-    repo = github_handle.get_repo(params['GGI_GITHUB_PROJECT'])
-
-    return repo, github_handle, headers
