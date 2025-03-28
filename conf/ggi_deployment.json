@@ -1,6 +1,6 @@
 {
-    "gitlab_url": "https://gitlab.ow2.org",
-    "gitlab_project": "ggi/my-ggi-board-test",
+    "gitlab_url": null,
+    "gitlab_project": null,
     "github_url": null,
     "github_project": null,
     "progress_labels": {

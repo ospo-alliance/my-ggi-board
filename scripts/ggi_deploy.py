@@ -12,7 +12,7 @@
 """
 This script:
 - reads the metadata defined in the `conf` directory,
-- connects to the GitLab instance as configured in the ggi_deployment.json file
+- connects to the GitLab/GitHub instance as configured in the ggi_deployment.json file
 - optionally creates the activities on a new (empty) gitlab project,
 - optionally creates a board and its lists to display activities.
 
@@ -29,15 +29,11 @@ optional arguments:
   -d, --project-description   Update Project Description with pointers to the Board and Dashboard
   -p, --schedule-pipeline     Schedule nightly pipeline to update dashboard
 """
-
 import argparse
 import json
 import os
 import random
 import re
-
-# Authentication is defined via github.Auth
-
 from collections import OrderedDict
 
 # Define some variables.
@@ -45,6 +41,7 @@ conf_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/conf'
 activities_file = conf_dir + '/ggi_activities_full.json'
 conf_file = conf_dir + '/ggi_deployment.json'
 init_scorecard_file = conf_dir + '/workflow_init.inc'
+
 
 # Define some regexps
 re_section = re.compile(r"^### (?P<section>.*?)\s*$")
@@ -91,10 +88,7 @@ def parse_args():
 def retrieve_env():
     """
     Read metadata for activities and deployment options.
-    
-    Determine GitLab server URL and Project name
-    * From Environment variable if available, or
-    * From configuration file otherwise
+
     """
 
     print(f"\n# Reading metadata from {activities_file}")
@@ -106,11 +100,7 @@ def retrieve_env():
     with open(init_scorecard_file, 'r', encoding='utf-8') as f:
         init_scorecard = f.readlines()
 
-    print(f"# Reading deployment options from {conf_file}")
-    with open(conf_file, 'r', encoding='utf-8') as f:
-        params = json.load(f)
-
-    return metadata, params, init_scorecard
+    return metadata, init_scorecard
 
 
 def get_scorecard(opt_random, init_scorecard):
@@ -161,3 +151,4 @@ def extract_sections(args, init_scorecard, activity):
         content_text += f"\n\n### {key}\n\n"
         content_text += '\n\n'.join(content[key])
     return content_text
+
