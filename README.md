@@ -72,8 +72,8 @@ In case the instance admin has disabled the _project_ access token, you can use 
 
 ### Setup the environment
 
-1. Edit the file in `conf/ggi_deployment.json`, and set the variables `gitlab_url` (such as `https://gitlab.com`) and `gitlab_project` (such as `ggi/my-ggi-board-test`)
-2. Commit and publish that file to your repository
+1. (Optional) Edit the file in `conf/ggi_deployment.json`, and set the variables `gitlab_url` (such as `https://gitlab.com`) and `gitlab_project` (such as `ggi/my-ggi-board-test`)
+2. (Optional) Commit and publish that file to your repository
 3. (Optional) Export the access token as an environment variable: `export GGI_GITLAB_TOKEN=xxxxxxx`.
 4. Enable CI/CD feature for the project : go to Settings > Visibility, project features, permissions > CI/CD and save changes
 5. (Optional) Configure GitLab Pages feature for the project : go to Deploy > Pages, uncheck 'Use unique domain' and Save changes
@@ -83,7 +83,6 @@ In case the instance admin has disabled the _project_ access token, you can use 
 
 7. Run the pipeline: go to Build > Pipelines, click on the button 'New Pipeline' and then click on the button 'Run Pipeline'
 8. Once the pipeline is over, you are done, your dashboard is ready !
-
 
 ## GitHub deployment
 
