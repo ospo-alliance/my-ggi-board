@@ -6,7 +6,7 @@ The _My GGI Board_ project helps implementing the [Good Governance Initiative (G
 The GGI framework is a guide to effectively implement, step by step, an Open Source Program Office in your organisation. It proposes 25 activities organised in 5 distinct goals.
 
 This document below is a simple guide to deploy _My GGI Board_ on [GitLab](https://gitlab.com) (see [here](#gitlab-deployment)) or [GitHub](https://github.com) (see [here](#github-deployment)) platforms within a few minutes.  
-You will find more advanced guidelines to fork and deploy manually in the dedicated pages for [GitLab](docs/getting-started-gitlab.md) and [GitHub](docs/getting-started-github.md).
+You will find more advanced guidelines to fork and deploy manually in the dedicated pages for [GitLab](docs/gitlab-advanced.md) and [GitHub](docs/github-advanced.md).
 
 
 The main steps are:
@@ -48,8 +48,7 @@ In case the instance admin has disabled the _project_ access token, you can use 
 
 ## Setup the environment
 
-!!! info
-    The pipeline might have already been executed and failed, since the token is not configured yet.
+The pipeline might have already been executed and failed, since the token is not configured yet.
 
 1. Enable CI/CD feature for the project : go to Settings > Visibility, project features, permissions > CI/CD and save changes
 1. (Optional) Configure GitLab Pages feature for the project : go to Deploy > Pages, uncheck 'Use unique domain' and Save changes
@@ -60,18 +59,11 @@ In case the instance admin has disabled the _project_ access token, you can use 
 1. Run the pipeline manually: go to Build > Pipelines, click on the button 'New Pipeline' and then click on the button 'Run Pipeline'
 1. Once the pipeline is over, you are done, your dashboard is ready !
 
-!!! warning
-   You may encounter the folling "spam detection" error below:
-
-   > `gitlab.exceptions.GitlabHttpError: 409: {'error': 'Your issue has been recognized as spam. Please, change the content or solve the reCAPTCHA to proceed.'}
-
-   Please be patient are try again later.
-
 # GitHub deployment
 
 ## Fork the repository
 
-To deploy on GitHub, the simplest is to fork the [GitHub mirror repository](https://github.com/ospo-alliance/my-ggi-board) in your own space, using the _Fork_ feature: [github.com/ospo-alliance/my-ggi-board/fork]](https://github.com/ospo-alliance/my-ggi-board/fork).
+To deploy on GitHub, the simplest is to fork the [GitHub mirror repository](https://github.com/ospo-alliance/my-ggi-board) in your own space, using the _Fork_ feature: [github.com/ospo-alliance/my-ggi-board/fork](https://github.com/ospo-alliance/my-ggi-board/fork).
 
 <img src="resources/setup_fork-repo_github.png" width="50%" height="50%">
 
@@ -97,8 +89,7 @@ To deploy on GitHub, the simplest is to fork the [GitHub mirror repository](http
 
 ## Run the GitHub Action
 
-!!! info
-    The action might have already been executed and failed, since the token was not configured yet.
+The action might have already been executed and failed, since the token was not configured yet.
 
 1. Click on the Action menu entry
 1. Make sure you agree with the text, click `I understant my workflows, go ahead and enable them`
