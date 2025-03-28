@@ -1,25 +1,9 @@
-## GitLab deployment
+# Advanced GitLab deployment
 
-### Fork the repository
-Multiple options here: 
-- use the Import feature proposed by GitLab
-- fork manually.
+Alternatively to the straight forward deployement (see the [README file](README.md#gitlab-deployment)), you may want to fork and execute the scripts locally.
 
-**GitLab Import Project**  
-Probably simpler, but be aware that all branches will be duplicated to you own repo.
+## Manually fork the repository
 
-In your own GitLab space:
-- Create a new project
-- Choose: _Import project_
-- Choose: _Repository by URL_
-- Enter `https://gitlab.ow2.org/ggi/my-ggi-board.git`
-- Adjust parameters (project url, slug and visibility level)
-- Click: _Create project_
-
-    <img src="resources/setup_import-project.png" width="50%" height="50%">
-
-
-**Manually Fork**  
 1. Create an empty project on your target GitLab instance.
 
     <img src="resources/setup_create-project.png" width="50%" height="50%">
@@ -33,21 +17,7 @@ $ git remote add my-ggi-board git@gitlab.com:<your-gitlab-space>/my-ggi-board.gi
 $ git push my-ggi-board
 ```
 
-### Create your GitLab token
-
-Two possibilities to create your [GitLab token](https://docs.gitlab.com/ee/security/tokens/index.html), depending on your GitLab environment: use a [Project access tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#project-access-tokens) of a [Personal access tokens](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
-
-**Project access tokens**  
-Create an access token (Project settings > Access Tokens) with the `api` privilege and with role `Maintainer`. Remember it, you will never see it again.
-
-<img src="resources/setup_project-token.png" width="50%" height="50%">
-
-**Personal access tokens**  
-In case the instance admin has disabled the _project_ access token, you can use an _personal_ access token, although we recommend creating a dedicated account for security purposes in that case. Go to Preferences > Access Tokens and create the token from there.
-
-<img src="resources/setup_personal-token.png" width="50%" height="50%">
-
-### Setup the environment
+## Setup the environment
 
 1. Edit the file in `conf/ggi_deployment.json`, and set the variables `gitlab_url` (such as `https://gitlab.com`) and `gitlab_project` (such as `ggi/my-ggi-board-test`)
 1. Commit and publish that file to your repository

@@ -5,7 +5,9 @@ This is the home of your own **Good Governance Initiative tracking board**.
 The _My GGI Board_ project helps implementing the [Good Governance Initiative (GGI)](https://ospo-alliance.org/ggi) framework.  
 The GGI framework is a guide to effectively implement, step by step, an Open Source Program Office in your organisation. It proposes 25 activities organised in 5 distinct goals.
 
-This document below is a simple guide to deploy _My GGI Board_ on [GitLab](https://gitlab.com) or [GitHub](https://github.com) platforms within a few minutes.
+This document below is a simple guide to deploy _My GGI Board_ on [GitLab](https://gitlab.com) (see [here](#gitlab-deployment)) or [GitHub](https://github.com) (see [here](#github-deployment)) platforms within a few minutes.  
+You will find more advanced guidelines to fork and deploy manually in the dedicated pages for [GitLab](docs/getting-started-gitlab.md) and [GitHub](docs/getting-started-github.md).
+
 
 The main steps are:
 - Fork the [my-ggi-board repository](https://gitlab.ow2.org/ggi/my-ggi-board) in your own GitLab/GitHub space.
@@ -16,15 +18,9 @@ The main steps are:
   - An Issues Board for a clear overview of you current activities (still work in progress for GitHub)
   - A static website to share progress and current work
 
-# How it works
+# GitLab deployment
 
-Currently the deployment is supported on the following platforms:
-- [GitLab](https://gitlab.com)
-- [GitHub](https://github.com)
-
-## GitLab deployment
-
-### Fork the repository
+## Fork the repository
 
 In your own GitLab space:
 - Create a new project
@@ -36,7 +32,7 @@ In your own GitLab space:
 
     <img src="resources/setup_import-project.png" width="50%" height="50%">
 
-### Create your GitLab token
+## Create your GitLab token
 
 Two possibilities to create your [GitLab token](https://docs.gitlab.com/ee/security/tokens/index.html), depending on your GitLab environment: use a [Project access tokens](https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html#project-access-tokens) of a [Personal access tokens](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html)
 
@@ -50,7 +46,7 @@ In case the instance admin has disabled the _project_ access token, you can use 
 
 <img src="resources/setup_personal-token.png" width="50%" height="50%">
 
-### Setup the environment
+## Setup the environment
 
 !!! info
     The pipeline might have already been executed and failed, since the token is not configured yet.
@@ -71,19 +67,19 @@ In case the instance admin has disabled the _project_ access token, you can use 
 
    Please be patient are try again later.
 
-## GitHub deployment
+# GitHub deployment
 
-### Fork the repository
+## Fork the repository
 
 To deploy on GitHub, the simplest is to fork the [GitHub mirror repository](https://github.com/ospo-alliance/my-ggi-board) in your own space, using the _Fork_ feature: [github.com/ospo-alliance/my-ggi-board/fork]](https://github.com/ospo-alliance/my-ggi-board/fork).
 
 <img src="resources/setup_fork-repo_github.png" width="50%" height="50%">
 
-### Configure the project
+## Configure the project
 
 1. Go to the repository _Settings_ > _General_ > _Features_ and enable 'Issues' and 'Projects'.
 
-### Configure your GitHub token
+## Configure your GitHub token
 
 1. Go to _User Settings_ > _Developer setting_ > _Personal access tokens_ > [_Tokens (classic)_](https://github.com/settings/tokens).
 1. Click on 'Generate a new token' then 'Generate new token (classic)'
@@ -99,7 +95,7 @@ To deploy on GitHub, the simplest is to fork the [GitHub mirror repository](http
 
     <img src="resources/setup_create-variable_github.png" width="50%" height="50%"> 
 
-### Run the GitHub Action
+## Run the GitHub Action
 
 !!! info
     The action might have already been executed and failed, since the token was not configured yet.
