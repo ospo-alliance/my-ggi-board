@@ -1,21 +1,8 @@
-## GitHub deployment
+# Advanced GitHub deployment
 
-### Fork the repository
-Multiple options here: you may want, for example, to use the Import feature proposed by GitHub, or fork manually.
+Alternatively to the straight forward deployement (see the [README file](README.md#github-deployment)), you may want to fork and execute the scripts locally.
 
-**GitHub Import Project**
-Probably simpler, but be aware that all branches will be duplicated to you own repo.
-
-In your own GitHub space:
-- Create a new project
-- Choose: _Import project_
-- In 'The URL for your source repository' field, enter `https://gitlab.ow2.org/ggi/my-ggi-board.git`
-- Choose the owner and the repository name
-- Click on _Begin import_
-
-    <img src="resources/setup_create-project_github.png" width="50%" height="50%">
-
-**Manually Fork**
+## Manually fork the repository
 
 1. Create an empty project on your target GitHub instance.
 1. Clone the [my-ggi-board repository](https://gitlab.ow2.org/ggi/my-ggi-board) to your new project.
@@ -26,18 +13,7 @@ $ git clone https://gitlab.ow2.org/ggi/my-ggi-board.git
 $ git remote add my-ggi git@github.com:<your-GitHub-space>/my-ggi-board.git
 $ git push my-ggi-board
 ```
-
-### Create your GitHub token
-
-**Personal access tokens**  
-1. Go to Settings > Developer setting > Personal access tokens > Tokens (classic).
-1. Click on 'Generate a new token' then 'Generate new token (classic)'
-1. Name it 'my-ggi-board', choose an expiration and select scopes 'Repo' and 'Workflow'
-1. Click on 'Generate token'
-
-    <img src="resources/setup_personal-token_github.png" width="50%" height="50%">
-
-### Setup the environment
+## Setup the environment
 
 1. Edit the file in `conf/ggi_deployment.json`, and set the variables `github_url` (such as `https://github.com`) and `github_project` (such as `my-ggi-board`)
 1. Commit and publish that file to your repository

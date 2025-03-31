@@ -21,7 +21,7 @@ jobs:
           python -m pip install -r requirements.txt
       - name: GGI Deploy
         env:
-          GGI_GITHUB_TOKEN: ${{ secrets.GGI_GITHUB_TOKEN }}
+          GGI_GITHUB_TOKEN: ${{secrets.GGI_GITHUB_TOKEN}}
           GGI_GITHUB_REPOSITORY: ${{github.repository}}
         run: |
           python scripts/ggi_deploy_github.py -a -d -p
@@ -37,7 +37,7 @@ jobs:
           python -m pip install -r requirements.txt
       - name: GGI Update website
         env:
-          GGI_GITHUB_TOKEN: ${{ secrets.GGI_GITHUB_TOKEN }}
+          GGI_GITHUB_TOKEN: ${{secrets.GGI_GITHUB_TOKEN}}
         run: |
           python scripts/ggi_update_website_github.py
       - name: Save generated website files

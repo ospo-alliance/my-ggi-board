@@ -13,76 +13,19 @@
 
 """
 import glob
-import json
-import os
-import urllib.parse
 from datetime import date
 
 import pandas as pd
-import tldextract
-from github import Auth, Github
 
 from ggi_update_website import *
+from ggi_utils_github import *
 
-
-def retrieve_env():
-    """
-    Read metadata for activities and deployment options.
-
-    Determine GitHub server URL and Project name
-    * From Environment variable if available, or
-    * From configuration file otherwise
-    """
-
-    print(f"# Reading deployment options from {file_conf}.")
-    with open(file_conf, 'r', encoding='utf-8') as f:
-        params = json.load(f)
-
-    if 'GGI_GITHUB_REPOSITORY' in os.environ: # github.repository
-        params['GGI_GITHUB_PROJECT'] = os.environ['GGI_GITHUB_REPOSITORY']
-        print(f"- Using GitHub project {params['GGI_GITHUB_PROJECT']} " +
-              "from environment variable file.")
-    elif 'github_project' in params:
-        params['GGI_GITHUB_PROJECT'] = params['github_project']
-        print(f"- Using GitHub project {params['github_project']} " +
-              "from configuration file.")
-    else:
-        print("I need a project (org + repo), e.g. ospo-alliance/" +
-              "my-ggi-board. Exiting.")
-        exit(1)
-
-    if 'GGI_GITHUB_TOKEN' in os.environ:
-        print("- Using ggi_github_token from env var.")
-        params['GGI_GITHUB_TOKEN'] = os.environ['GGI_GITHUB_TOKEN']
-    else:
-        print("- Cannot find env var GGI_GITHUB_TOKEN. Please set it and re-run me.")
-        exit(1)
-
-    if 'github_host' in params and params['github_host'] != 'null':
-        print(f"- Using GitHub on-premises host {params['github_host']} " +
-              "from configuration file.")
-        # Github Enterprise with custom hostname
-        params['GGI_API_URL'] = f"{params['github_host']}/api/v3"
-        params['GGI_GITHUB_URL'] = urllib.parse.urljoin(params['github_host'] + '/', params['GGI_GITHUB_PROJECT'])
-        params['GGI_PAGES_URL'] = 'https://fix.me'
-    else:
-        # Public Web GitHub
-        params['GGI_API_URL'] = None
-        params['GGI_GITHUB_URL'] = urllib.parse.urljoin('https://github.com/', params['GGI_GITHUB_PROJECT'])
-        params['GGI_PAGES_URL'] = urllib.parse.urljoin(
-            'https://' + re.sub('/.*$', '', params['GGI_GITHUB_PROJECT']) + '.github.io/', 
-            re.sub('^.*/', '', params['GGI_GITHUB_PROJECT']))
-        print("- Using public GitHub instance.")
-
-    params['GGI_ACTIVITIES_URL']= urllib.parse.urljoin(params['GGI_GITHUB_URL'] + '/', 'issues')
-
-    return params
 
 def retrieve_github_issues(params: dict):
     print(f"\n# Retrieving project from GitHub at {params['GGI_GITHUB_URL']}.")
     # Using an access token
     auth = Auth.Token(params['GGI_GITHUB_TOKEN'])
-    if params['GGI_API_URL'] == None :
+    if params['GGI_API_URL'] is None:
         g = Github(auth=auth)
     else:
         g = Github(auth=auth, base_url=params['GGI_API_URL'])
@@ -114,23 +57,9 @@ def retrieve_github_issues(params: dict):
         short_desc = '\n'.join(description)
         tasks_total = len(a_tasks)
         tasks_done = len([t for t in a_tasks if t['is_completed']])
-        #TODO comprendre pourquoi i.state et pas le label de progression
-        #TODO comprendre pourquoi tasks_total et done sont mal calculés pour GitHub
         issues.append([i.id, a_id, i.state, i.title, ','.join([label.name for label in i.labels]),
                        i.updated_at, i.url, short_desc, workflow,
                        tasks_total, tasks_done])
-
-        # Retrieve information about labels.
-        # for n in i.resourcelabelevents.list():
-        #     event = i.resourcelabelevents.get(n.id)
-        #     n_type = 'label'
-        #     label = n.label['name'] if n.label else ''
-        #     n_action = f"{n.action} {label}"
-        #     user = n.user['username'] if n.user else 'unknown'
-        #     line = [n.created_at, i.iid,
-        #             n.id, n_type, user,
-        #             n_action, i.web_url]
-        #     hist.append(line)
 
         for event in i.get_events():
             if event.event == "labeled" or event.event == "unlabeled":
@@ -161,7 +90,9 @@ def main():
 
     args = parse_args()
 
-    params = retrieve_env()
+    params = retrieve_params()
+    repo, github_handle, headers = get_authent(params)
+
     print(params)
 
     issues, tasks, hist = retrieve_github_issues(params)
