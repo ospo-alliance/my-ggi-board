@@ -18,7 +18,9 @@ The main steps are:
   - An Issues Board for a clear overview of you current activities (still work in progress for GitHub)
   - A static website to share progress and current work
 
-# GitLab deployment
+Currently the deployment is supported and documented on the following platforms:
+- [GitLab](#gitlab-deployment)
+- [GitHub](#github-deployment)
 
 ## Fork the repository
 
@@ -63,7 +65,7 @@ The pipeline might have already been executed and failed, since the token is not
 
 ## Fork the repository
 
-To deploy on GitHub, the simplest is to fork the [GitHub mirror repository](https://github.com/ospo-alliance/my-ggi-board) in your own space, using the _Fork_ feature: [github.com/ospo-alliance/my-ggi-board/fork](https://github.com/ospo-alliance/my-ggi-board/fork).
+The easiest way to deploy on GitHub is to fork the [GitHub mirror repository](https://github.com/ospo-alliance/my-ggi-board) in your own space, using the [_Fork_ feature](https://github.com/ospo-alliance/my-ggi-board/fork).
 
 <img src="resources/setup_fork-repo_github.png" width="50%" height="50%">
 
@@ -75,7 +77,7 @@ To deploy on GitHub, the simplest is to fork the [GitHub mirror repository](http
 
 1. Go to _User Settings_ > _Developer setting_ > _Personal access tokens_ > [_Tokens (classic)_](https://github.com/settings/tokens).
 1. Click on 'Generate a new token' then 'Generate new token (classic)'
-1. Name it 'my-ggi-board', choose an expiration and select scopes 'Repo' and 'Workflow'
+1. Name it 'my-ggi-board', choose an expiration date and select scopes 'Repo' and 'Workflow'
 1. Click on 'Generate token'
 
     <img src="resources/setup_personal-token_github.png" width="50%" height="50%">
