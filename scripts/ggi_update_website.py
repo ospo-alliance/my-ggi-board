@@ -35,7 +35,7 @@ file_json_out = 'ggi_activities_full.json'
 # Identify tasks in description:
 re_tasks = re.compile(r"^\s*- \[(?P<is_completed>.)\] (?P<task>.+)$")
 # Identify tasks in description:
-re_activity_id = re.compile(r"^Activity ID: \[(GGI-A-\d\d)\]\(.+\).$")
+re_activity_id = re.compile(r"^Activity ID: \[(GGI-A-\d\d) \(EN\)\]\(.+\).$")
 # Identify sections for workflow parsing.
 re_section = re.compile(r"^### (?P<section>.*?)\s*$")
 re_subsection = re.compile(r"^#### (?P<subsection>.*?)\s*$")
