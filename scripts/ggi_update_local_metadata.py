@@ -36,7 +36,7 @@ local_activities_file_path = local_conf_dir + '/ggi_activities_full.json'
 
 remote_git_url='https://gitlab.ow2.org'
 remote_git_project='ggi/ggi'
-remote_git_reference='main'
+remote_git_reference='dev'
 
 tmp_gz_dir = tempfile.TemporaryDirectory()
 tmp_gz_filename=tmp_gz_dir.name+'/ggi_content.tar.bz2'
