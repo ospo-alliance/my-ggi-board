@@ -58,7 +58,7 @@ def retrieve_params():
         print("- Cannot find env var GGI_GITHUB_TOKEN. Please set it and re-run me.")
         exit(1)
 
-    if 'github_host' in params and params['github_host'] != 'null':
+    if 'github_host' in params and params['github_host'] is not None:
         print(f"- Using GitHub on-premises host {params['github_host']} " +
               "from configuration file.")
         # GitHub Enterprise with custom hostname
