@@ -40,9 +40,10 @@ def retrieve_params():
     elif 'GGI_GITLAB_URL' in os.environ:
         params['GGI_GITLAB_URL'] = os.environ['GGI_GITLAB_URL']
         print("- Using GitLab URL from env var 'GGI_GITLAB_URL'")
-    elif 'gitlab_url' in params:
+    elif 'gitlab_url' in params and params['gitlab_url'] is not None:
         params['GGI_GITLAB_URL'] = params['gitlab_url']
         print("- Using GitLab URL from configuration file")
+        print(params['GGI_GITLAB_URL'] )
     else:
         print("Cannot find GitLab URL. Exiting.")
         exit(1)
@@ -54,7 +55,7 @@ def retrieve_params():
     elif 'GGI_GITLAB_PROJECT' in os.environ:
         params['GGI_GITLAB_PROJECT'] = os.environ['GGI_GITLAB_PROJECT']
         print("- Using Project from env var 'GGI_GITLAB_PROJECT'")
-    elif 'gitlab_project' in params:
+    elif 'gitlab_project' in params and params['gitlab_project'] is not None:
         params['GGI_GITLAB_PROJECT'] = params['gitlab_project']
         print("- Using Project from configuration file")
     else:
