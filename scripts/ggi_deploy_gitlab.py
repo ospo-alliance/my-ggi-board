@@ -27,6 +27,11 @@ def main():
     params = retrieve_params()
     setup_gitlab(metadata, params, init_scorecard, args)
 
+    cert_file="sourcehub-obs-si-fr-intraorange.pem"
+    print("* Load selfsigned certificate")
+    print(os.getcwd())
+    os.environ["REQUESTS_CA_BUNDLE"] = cert_file
+
     print("\nDone.")
 
 
