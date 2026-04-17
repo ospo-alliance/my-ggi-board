@@ -22,6 +22,8 @@ Currently the deployment is supported and documented on the following platforms:
 - [GitLab](#gitlab-deployment)
 - [GitHub](#github-deployment)
 
+# GitLab deployment
+
 ## Fork the repository
 
 In your own GitLab space:
