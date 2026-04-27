@@ -27,7 +27,7 @@ def main():
     params = retrieve_params()
     setup_gitlab(metadata, params, init_scorecard, args)
 
-    cert_file="Orange_Internal_G2_Root_CA.pem"
+    cert_file="Orange_Internal_G2_Server_CA.pem"
     print("* Load selfsigned certificate")
     print(os.getcwd())
     os.environ["REQUESTS_CA_BUNDLE"] = cert_file
