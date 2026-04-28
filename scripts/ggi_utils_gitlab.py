@@ -17,6 +17,7 @@ import json
 import os
 import urllib.parse
 import tldextract
+from pathlib import Path
 
 from ggi_deploy import *
 
@@ -70,6 +71,14 @@ def retrieve_params():
         print("Cannot find env var 'GGI_GITLAB_TOKEN'. Exiting.")
         exit(1)
 
+    # GitLab CA Certificate
+    if 'GGI_GITLAB_CA_BUNDLE' in os.environ:
+        params['GGI_GITLAB_CA_BUNDLE'] = os.environ['GGI_GITLAB_CA_BUNDLE']
+        print("- Using CA certificate stored in 'GGI_GITLAB_CA_BUNDLE'")
+    if 'GGI_GITLAB_CA_BUNDLE_PATH' in os.environ:
+        params['GGI_GITLAB_CA_BUNDLE_PATH'] = os.environ['GGI_GITLAB_CA_BUNDLE_PATH']
+        print(f"- Using CA certificate file path 'GGI_GITLAB_CA_BUNDLE_PATH': {params['GGI_GITLAB_CA_BUNDLE_PATH']}")
+
     # Pages URL
     if 'CI_PAGES_URL' in os.environ:
         params['GGI_PAGES_URL'] = os.environ['CI_PAGES_URL']
@@ -90,6 +99,30 @@ def retrieve_params():
 
     return params
 
+def set_ca_certificate(params: dict):
+    """
+    Configure GitLab certificate validation chain
+    """
+
+    ca_bundle = None
+    if 'GGI_GITLAB_CA_BUNDLE' in params:
+        ca_bundle = os.path.join('/tmp', 'ssl_ca_bundle.pem')
+        print(f"* Writing CA bundle to: {ca_bundle}")
+        with open(ca_bundle, 'w', encoding="utf-8") as f:
+            f.write(params['GGI_GITLAB_CA_BUNDLE'])
+    elif 'GGI_GITLAB_CA_BUNDLE_PATH' in params:
+        ca_bundle = params['GGI_GITLAB_CA_BUNDLE_PATH']
+    else:
+        print("* No CA bundle configured")
+
+    if ca_bundle != None:
+        ca_bundle_path = Path(ca_bundle)
+        if ca_bundle_path.exists() and ca_bundle_path.stat().st_size > 0:
+            print(f"* Using CA bundle: {ca_bundle}")
+            os.environ['REQUESTS_CA_BUNDLE'] = ca_bundle
+        else:
+            print(f"* CA bundle not found or empty, aborting: {ca_bundle}")
+            exit(1)
 
 def main():
     """

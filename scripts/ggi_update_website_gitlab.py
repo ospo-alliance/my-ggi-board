@@ -18,13 +18,14 @@ import gitlab
 import pandas as pd
 
 from ggi_update_website import *
-from ggi_utils_gitlab import retrieve_params
+from ggi_utils_gitlab import *
 
 
 def retrieve_gitlab_issues(params: dict):
     """
     Retrieve issues from GitLab instance.
     """
+
     print(f"\n# Connection to GitLab at {params['GGI_GITLAB_URL']} - {params['GGI_GITLAB_PROJECT']}.")
     gl = gitlab.Gitlab(url=params['GGI_GITLAB_URL'], per_page=50, private_token=params['GGI_GITLAB_TOKEN'])
     project = gl.projects.get(params['GGI_GITLAB_PROJECT'])
@@ -60,6 +61,7 @@ def retrieve_gitlab_issues(params: dict):
 def main():
     args = parse_args()
     params = retrieve_params()
+    set_ca_certificate(params)
 
     issues, tasks, hist = retrieve_gitlab_issues(params)
 

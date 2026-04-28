@@ -63,6 +63,13 @@ The pipeline might have already been executed and failed, since the token is not
 1. Run the pipeline manually: go to Build > Pipelines, click on the button 'New Pipeline' and then click on the button 'Run Pipeline'
 1. Once the pipeline is over, you are done, your dashboard is ready !
 
+## GitLab self-signed certificate
+
+If your GitLab instance uses a self-signed certificate, you will also have to configure the CA authority certificate.  
+To achieve this, two options:
+- paste the contents of the CA bundle `pem` file in the GitLab CI variable: `GGI_GITLAB_CA_BUNDLE`
+- configure a GitLab CI variable: `GGI_GITLAB_CA_BUNDLE_PATH` with the path to the CA bundle file, and commit the file in your repository (or use locally)
+
 # GitHub deployment
 
 ## Fork the repository

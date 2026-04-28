@@ -13,7 +13,7 @@ import random
 import urllib.parse
 import gitlab
 from ggi_deploy import *
-from ggi_utils_gitlab import retrieve_params
+from ggi_utils_gitlab import *
 
 
 def main():
@@ -25,6 +25,7 @@ def main():
     print("* Using GitLab backend.")
     metadata, init_scorecard = retrieve_env()
     params = retrieve_params()
+    set_ca_certificate(params)
     setup_gitlab(metadata, params, init_scorecard, args)
 
     print("\nDone.")
